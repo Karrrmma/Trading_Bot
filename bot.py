@@ -9,17 +9,22 @@ from alpaca_trade_api import REST
 from timedelta import Timedelta 
 from sentiment import estimate_sentiment
 # Replace finbert_utils with Hugging Face's transformers
+from dotenv import load_dotenv
+import os
 
-API_KEY = "PKJKPQAUHK7O3JH8Q0AM" 
-API_SECRET = "5vOaqSBUd7U6zn6y3eBXTRM37vh5Qf6UBiJ387er" 
-BASE_URL = "https://paper-api.alpaca.markets/v2"
+# Load .env file
+load_dotenv()
+
+# Secure API credentials
+API_KEY = os.getenv("API_KEY")
+API_SECRET = os.getenv("API_SECRET")
+BASE_URL = os.getenv("BASE_URL")
 
 ALPACA_CREDS = {
-    "API_KEY":API_KEY, 
-    "API_SECRET": API_SECRET, 
+    "API_KEY": API_KEY,
+    "API_SECRET": API_SECRET,
     "PAPER": True
 }
-
 class MLTrader(Strategy): 
     def initialize(self, symbol:str="SPY", cash_at_risk:float=.5): 
         self.symbol = symbol
